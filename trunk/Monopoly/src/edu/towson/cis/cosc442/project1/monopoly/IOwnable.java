@@ -6,7 +6,7 @@ public interface IOwnable {
 
 	public abstract Player getTheOwner();
 
-	public abstract void playAction();
+	public abstract boolean playAction(String msg);
 	
 	public abstract int getPrice();
 

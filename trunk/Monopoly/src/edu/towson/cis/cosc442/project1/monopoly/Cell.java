@@ -29,11 +29,7 @@ public abstract class Cell implements IOwnable {
 		return 0;
 	}
 
-	/* (non-Javadoc)
-	 * @see edu.towson.cis.cosc442.project1.monopoly.IOwnable#getPrice()
-	 */
-	@Override
-	public abstract void playAction();
+	public abstract boolean playAction(String msg);
 
 	void setName(String name) {
 		this.name = name;
