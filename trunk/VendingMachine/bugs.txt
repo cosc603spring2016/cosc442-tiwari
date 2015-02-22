@@ -1,0 +1,4 @@
+Bugs found in the VendingMachine project:
+
+Potential problem with the double balance object in VendingMachine.java being declared protected.
+Other than that, not bugs were found with the unit tests that I created.
