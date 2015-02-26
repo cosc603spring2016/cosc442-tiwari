@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>VendingMachineTest.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">VendingMachine (Feb 26, 2015 2:48:38 PM)</a> &gt; <a href="../../index.html" class="el_group">VendingMachine</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">edu.towson.cis.cosc442.project3.vendingmachine</a> &gt; <span class="el_source">VendingMachineTest.java</span></div><h1>VendingMachineTest.java</h1><pre class="source lang-java linenums">package edu.towson.cis.cosc442.project3.vendingmachine;
+
+import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.After;
+import org.junit.Test;
+
+<span class="nc" id="L8">public class VendingMachineTest {</span>
+	
+	//the vending machine text object
+	VendingMachine machine;
+	VendingMachineItem item;
+	
+	/**
+	 * Sets up the objects used in the tests
+	 * 
+	 * @throws Exception the exception
+	 */
+	@Before
+	public void setUp() throws VendingMachineException {
+<span class="nc" id="L21">		machine = new VendingMachine();</span>
+<span class="nc" id="L22">		item = new VendingMachineItem(&quot;Coke&quot;, 1.25);</span>
+<span class="nc" id="L23">		machine.addItem(item, &quot;A&quot;);</span>
+<span class="nc" id="L24">	}</span>
+	
+	/**
+	 * Test the addItem() method of VendingMachine.java to make sure the exception is shown
+	 * when an item is attempted to be added on a slot that is already occupied
+	 * 
+	 */
+	@Test(expected=VendingMachineException.class)
+	public void testAddItemTest() {
+<span class="nc" id="L33">		item = new VendingMachineItem(&quot;Chocolate Bar&quot;, 1.00);</span>
+<span class="nc" id="L34">		machine.addItem(item, &quot;A&quot;);</span>
+<span class="nc" id="L35">	}</span>
+	
+	
+	/**
+	 * Test the addItem() method of VendingMachine.java to make sure that an item can be added to a slot
+	 * by checking that the item returned in the index is not null
+	 */
+	@Test
+	public void testAddItem() {
+<span class="nc" id="L44">		item = new VendingMachineItem(&quot;Chips&quot;, 1.00);</span>
+<span class="nc" id="L45">		machine.addItem(item, &quot;B&quot;);</span>
+		//get the values of the item at slot B
+<span class="nc" id="L47">		item = null;</span>
+<span class="nc" id="L48">		item = machine.getItem(&quot;B&quot;);</span>
+<span class="nc" id="L49">		assertNotNull(item);</span>
+<span class="nc" id="L50">	}</span>
+	
+	/**
+	 * Test the removeItem() method of VendingMachine.java to make sure the expection is thrown when removeItem()
+	 * is called on an empty slot
+	 */
+	@Test(expected=VendingMachineException.class)
+	public void testRemoveItemException() {
+<span class="nc" id="L58">		item = machine.removeItem(&quot;C&quot;);</span>
+<span class="nc" id="L59">	}</span>
+	
+	/**
+	 * Test removeItem() method of VendingMachine.java to make sure that an item is successfully removed
+	 * Also try to remove the item again to make sure that the item was removed from the slot successfully
+	 * which is done by checking the exception
+	 */
+	@Test(expected=VendingMachineException.class)
+	public void testRemoveItem() {
+<span class="nc" id="L68">		item = machine.removeItem(&quot;B&quot;);</span>
+<span class="nc" id="L69">		assertEquals(&quot;Testing the name of the two items.&quot;, &quot;Chips&quot;, item.getName());</span>
+<span class="nc" id="L70">		assertEquals(1.00, item.getPrice(), 0.0001);</span>
+		//try to remove the item again to make sure that the item was removed and slot B is empty
+<span class="nc" id="L72">		item = machine.removeItem(&quot;B&quot;);</span>
+<span class="nc" id="L73">	}</span>
+	
+	/**
+	 * Test the insertMoney() method to make sure that the exception is thrown when a value less than 0 is passed
+	 */
+	@Test//(expected=VendingMachineException.class)
+	public void testInsertMoneyException() {
+		try {
+<span class="nc" id="L81">			machine.insertMoney(-1.0);</span>
+<span class="nc" id="L82">		}catch(VendingMachineException e) {</span>
+			
+<span class="nc" id="L84">		}finally {</span>
+<span class="nc" id="L85">			assertEquals(0.0, machine.getBalance(), 0.0001);</span>
+<span class="nc" id="L86">		}</span>
+<span class="nc" id="L87">	}</span>
+	
+	/**
+	 * Test insertMoney() method to make sure that the value is added
+	 */
+	@Test
+	public void testInsertMoney() {
+<span class="nc" id="L94">		machine.insertMoney(2.0);</span>
+<span class="nc" id="L95">		assertEquals(2.0, machine.getBalance(), 0.0001);</span>
+<span class="nc" id="L96">	}</span>
+	
+	/**
+	 * Test the getBalance() method to make sure that the correct balance is returned
+	 */
+	@Test
+	public void testGetBalance() {
+<span class="nc" id="L103">		double balance = machine.getBalance();</span>
+<span class="nc" id="L104">		assertEquals(0.0, balance, 0.0001);</span>
+<span class="nc" id="L105">		machine.insertMoney(2.0);</span>
+<span class="nc" id="L106">		balance = machine.getBalance();</span>
+<span class="nc" id="L107">		assertEquals(2.0, balance, 0.0001);</span>
+<span class="nc" id="L108">	}</span>
+	
+	/**
+	 * Test makePurchase() to make sure that a purchase is successful with enough money and a filled slot
+	 */
+	@Test
+	public void testMakePurchaseTrue() {
+<span class="nc" id="L115">		machine.insertMoney(2.0);</span>
+<span class="nc" id="L116">		boolean purchase = machine.makePurchase(&quot;A&quot;);</span>
+<span class="nc" id="L117">		assertTrue(purchase);</span>
+<span class="nc" id="L118">		assertNull(machine.getItem(&quot;A&quot;));</span>
+<span class="nc" id="L119">	}</span>
+	
+	/**
+	 * Test makePurchase() to make sure that a purchase is not successful with less money and a filled slot
+	 */
+	@Test
+	public void testMakePurchaseFalseItemExists() {
+<span class="nc" id="L126">		machine.insertMoney(1.0);</span>
+<span class="nc" id="L127">		boolean purchase = machine.makePurchase(&quot;A&quot;);</span>
+<span class="nc" id="L128">		assertFalse(purchase);</span>
+<span class="nc" id="L129">		assertNotNull(machine.getItem(&quot;A&quot;));</span>
+<span class="nc" id="L130">	}</span>
+	
+	/**
+	 * Test makePurchase() to make sure that a purchase is not successful with an empty slot
+	 */
+	@Test
+	public void testMakePurchaseFalseItemNotExists() {
+<span class="nc" id="L137">		machine.insertMoney(2.0);</span>
+<span class="nc" id="L138">		boolean purchase = machine.makePurchase(&quot;D&quot;);</span>
+<span class="nc" id="L139">		assertFalse(purchase);</span>
+<span class="nc" id="L140">		assertNull(machine.getItem(&quot;D&quot;));</span>
+<span class="nc" id="L141">	}</span>
+	
+	/**
+	 * Test the returnChange() method to make sure that the correct change is returned
+	 */
+	@Test
+	public void testReturnChange() {
+<span class="nc" id="L148">		machine.insertMoney(2.0);</span>
+<span class="nc" id="L149">		boolean purchase = machine.makePurchase(&quot;A&quot;);</span>
+<span class="nc" id="L150">		assertTrue(purchase);</span>
+<span class="nc" id="L151">		assertEquals(0.75, machine.returnChange(), 0.0001);</span>
+<span class="nc" id="L152">	}</span>
+	
+	/**
+	 * Test to make sure that an exception is thrown when an invalid slot code is used to get an item.
+	 */
+	@Test(expected=VendingMachineException.class)
+	public void testGetSlotIndexException() {
+<span class="nc" id="L159">		item = machine.getItem(&quot;G&quot;);</span>
+<span class="nc" id="L160">	}</span>
+
+	/**
+	 * Reset the data used in the tests
+	 */
+	@After
+	public void tearDown() {
+<span class="nc" id="L167">		machine = null;</span>
+<span class="nc" id="L168">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span>VendingMachine (Feb 26, 2015 2:48:38 PM)</div></body></html>

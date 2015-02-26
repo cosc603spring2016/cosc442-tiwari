@@ -1,4 +1,4 @@
-package edu.towson.cis.cosc442.project2.vendingmachine;
+package edu.towson.cis.cosc442.project3.vendingmachine;
 
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -135,9 +135,9 @@ public class VendingMachineTest {
 	@Test
 	public void testMakePurchaseFalseItemNotExists() {
 		machine.insertMoney(2.0);
-		boolean purchase = machine.makePurchase("B");
+		boolean purchase = machine.makePurchase("D");
 		assertFalse(purchase);
-		assertNull(machine.getItem("B"));
+		assertNull(machine.getItem("D"));
 	}
 	
 	/**
@@ -149,6 +149,14 @@ public class VendingMachineTest {
 		boolean purchase = machine.makePurchase("A");
 		assertTrue(purchase);
 		assertEquals(0.75, machine.returnChange(), 0.0001);
+	}
+	
+	/**
+	 * Test to make sure that an exception is thrown when an invalid slot code is used to get an item.
+	 */
+	@Test(expected=VendingMachineException.class)
+	public void testGetSlotIndexException() {
+		item = machine.getItem("G");
 	}
 
 	/**
