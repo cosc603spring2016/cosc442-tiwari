@@ -11,6 +11,8 @@ public class Inventory {
     private static int milk;
     private static int sugar;
     private static int chocolate;
+    private static String lineSeparator = System.getProperty("line.separator");
+    
     
     public Inventory() {
     	setCoffee(15);
@@ -125,9 +127,9 @@ public class Inventory {
      * @return String
      */
     public String toString() {
-    	return "Coffee: " + getCoffee() + "\n" +
-			"Milk: " + getMilk() + "\n" +
-			"Sugar: " + getSugar() + "\n" +
-			"Chocolate: " + getChocolate() + "\n";
+    	return "Coffee: " + getCoffee() + lineSeparator +
+			"Milk: " + getMilk() + lineSeparator +
+			"Sugar: " + getSugar() + lineSeparator +
+			"Chocolate: " + getChocolate() + lineSeparator;
     }
 }
