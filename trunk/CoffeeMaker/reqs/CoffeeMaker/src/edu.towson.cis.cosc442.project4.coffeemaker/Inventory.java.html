@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>Inventory.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">edu.towson.cis.cosc442.project4.coffeemaker (Mar 26, 2015 2:42:33 PM)</a> &gt; <a href="../../index.html" class="el_group">CoffeeMaker</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">edu.towson.cis.cosc442.project4.coffeemaker</a> &gt; <span class="el_source">Inventory.java</span></div><h1>Inventory.java</h1><pre class="source lang-java linenums">package edu.towson.cis.cosc442.project4.coffeemaker;
+
+/**
+ * Inventory for the coffee maker
+ * @author Josh
+ * @version $Revision: 1.0 $
+ */
+public class Inventory {
+    
+    private static int coffee;
+    private static int milk;
+    private static int sugar;
+    private static int chocolate;
+<span class="fc" id="L14">    private static String lineSeparator = System.getProperty(&quot;line.separator&quot;);</span>
+    
+    
+<span class="fc" id="L17">    public Inventory() {</span>
+<span class="fc" id="L18">    	setCoffee(15);</span>
+<span class="fc" id="L19">    	setMilk(15);</span>
+<span class="fc" id="L20">    	setSugar(15);</span>
+<span class="fc" id="L21">    	setChocolate(15);</span>
+<span class="fc" id="L22">    }</span>
+    
+    /**
+     * Method getChocolate.
+     * @return int
+     */
+    public int getChocolate() {
+<span class="fc" id="L29">        return chocolate;</span>
+    }
+    /**
+     * Method setChocolate.
+     * @param chocolate int
+     */
+    public void setChocolate(int chocolate) {
+<span class="fc bfc" id="L36" title="All 2 branches covered.">    	if(chocolate &gt;= 0) {</span>
+<span class="fc" id="L37">    		Inventory.chocolate = chocolate;</span>
+<span class="fc" id="L38">    	}</span>
+    	else {
+<span class="fc" id="L40">    		Inventory.chocolate = 0;</span>
+    	}
+        
+<span class="fc" id="L43">    }</span>
+    /**
+     * Method getCoffee.
+     * @return int
+     */
+    public int getCoffee() {
+<span class="fc" id="L49">        return coffee;</span>
+    }
+    /**
+     * Method setCoffee.
+     * @param coffee int
+     */
+    public void setCoffee(int coffee) {
+<span class="fc bfc" id="L56" title="All 2 branches covered.">    	if(coffee &gt;= 0) {</span>
+<span class="fc" id="L57">    		Inventory.coffee = coffee;</span>
+<span class="fc" id="L58">    	}</span>
+    	else {
+<span class="fc" id="L60">    		Inventory.coffee = 0;</span>
+    	}
+<span class="fc" id="L62">    }</span>
+    /**
+     * Method getMilk.
+     * @return int
+     */
+    public int getMilk() {
+<span class="fc" id="L68">        return milk;</span>
+    }
+    /**
+     * Method setMilk.
+     * @param milk int
+     */
+    public void setMilk(int milk) {
+<span class="fc bfc" id="L75" title="All 2 branches covered.">    	if(milk &gt;= 0) {</span>
+<span class="fc" id="L76">    		Inventory.milk = milk;</span>
+<span class="fc" id="L77">    	}</span>
+    	else {
+<span class="fc" id="L79">    		Inventory.milk = 0;</span>
+    	}
+<span class="fc" id="L81">    }</span>
+    /**
+     * Method getSugar.
+     * @return int
+     */
+    public int getSugar() {
+<span class="fc" id="L87">        return sugar;</span>
+    }
+    /**
+     * Method setSugar.
+     * @param sugar int
+     */
+    public void setSugar(int sugar) {
+<span class="fc bfc" id="L94" title="All 2 branches covered.">    	if(sugar &gt;= 0) {</span>
+<span class="fc" id="L95">    		Inventory.sugar = sugar;</span>
+<span class="fc" id="L96">    	}</span>
+    	else {
+<span class="fc" id="L98">    		Inventory.sugar = 0;</span>
+    	}
+<span class="fc" id="L100">    }</span>
+    
+    /**
+     * Returns true if there are enough ingredients to make
+     * the beverage.
+     * @param r
+    
+     * @return boolean */
+    public boolean enoughIngredients(Recipe r) {
+<span class="fc" id="L109">        boolean isEnough = true;</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">        if(Inventory.coffee &lt; r.getAmtCoffee()) {</span>
+<span class="fc" id="L111">            isEnough = false;</span>
+        }
+<span class="pc bpc" id="L113" title="1 of 2 branches missed.">        if(Inventory.milk &lt; r.getAmtMilk()) {</span>
+<span class="nc" id="L114">            isEnough = false;</span>
+        }
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">        if(Inventory.sugar &lt; r.getAmtSugar()) {</span>
+<span class="nc" id="L117">            isEnough = false;</span>
+        }
+<span class="pc bpc" id="L119" title="1 of 2 branches missed.">        if(Inventory.chocolate &lt; r.getAmtChocolate()) {</span>
+<span class="nc" id="L120">            isEnough = false;</span>
+        }
+<span class="fc" id="L122">        return isEnough;</span>
+    }
+    
+    /**
+     * Method toString.
+     * @return String
+     */
+    public String toString() {
+<span class="fc" id="L130">    	return &quot;Coffee: &quot; + getCoffee() + lineSeparator +</span>
+<span class="fc" id="L131">			&quot;Milk: &quot; + getMilk() + lineSeparator +</span>
+<span class="fc" id="L132">			&quot;Sugar: &quot; + getSugar() + lineSeparator +</span>
+<span class="fc" id="L133">			&quot;Chocolate: &quot; + getChocolate() + lineSeparator;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span>edu.towson.cis.cosc442.project4.coffeemaker (Mar 26, 2015 2:42:33 PM)</div></body></html>

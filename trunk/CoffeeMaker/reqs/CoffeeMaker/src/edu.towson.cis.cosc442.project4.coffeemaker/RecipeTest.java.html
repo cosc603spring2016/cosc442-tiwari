@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>RecipeTest.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">edu.towson.cis.cosc442.project4.coffeemaker (Mar 26, 2015 2:42:33 PM)</a> &gt; <a href="../../index.html" class="el_group">CoffeeMaker</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">edu.towson.cis.cosc442.project4.coffeemaker</a> &gt; <span class="el_source">RecipeTest.java</span></div><h1>RecipeTest.java</h1><pre class="source lang-java linenums">package edu.towson.cis.cosc442.project4.coffeemaker;
+
+import org.junit.Test;
+
+import junit.framework.TestCase;
+
+/**
+ * The class &lt;code&gt;RecipeTest&lt;/code&gt; contains tests for the class {@link
+ * &lt;code&gt;Recipe&lt;/code&gt;}
+ *
+ * @pattern JUnit Test Case
+ *
+ * @generatedBy CodePro at 3/26/15 2:21 PM
+ *
+ * @author User
+ *
+ * @version $Revision$
+ */
+<span class="fc" id="L19">public class RecipeTest extends TestCase {</span>
+	private CoffeeMaker cm;
+	private Inventory i;
+	private Recipe r1;
+	private Recipe r2;
+
+	public void setUp() {
+<span class="fc" id="L26">		cm = new CoffeeMaker();</span>
+<span class="fc" id="L27">		i = cm.checkInventory();</span>
+		
+<span class="fc" id="L29">		r1 = new Recipe();</span>
+<span class="fc" id="L30">		r1.setName(&quot;Coffee&quot;);</span>
+<span class="fc" id="L31">		r1.setPrice(50);</span>
+<span class="fc" id="L32">		r1.setAmtCoffee(1);</span>
+<span class="fc" id="L33">		r1.setAmtMilk(1);</span>
+<span class="fc" id="L34">		r1.setAmtSugar(1);</span>
+<span class="fc" id="L35">		r1.setAmtChocolate(0);</span>
+		
+<span class="fc" id="L37">		r2 = new Recipe();</span>
+<span class="fc" id="L38">		r2.setName(&quot;Black Coffee&quot;);</span>
+<span class="fc" id="L39">		r2.setPrice(40);</span>
+<span class="fc" id="L40">		r2.setAmtCoffee(1);</span>
+<span class="fc" id="L41">		r2.setAmtMilk(0);</span>
+<span class="fc" id="L42">		r2.setAmtSugar(1);</span>
+<span class="fc" id="L43">		r2.setAmtChocolate(0);</span>
+<span class="fc" id="L44">	}</span>
+	
+	/**
+	 * Test setAmountChocolate() method of the Recipe class to make sure
+	 * that a negative amount cannot be added.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	public void testSetAmountChocolate() throws Exception {
+<span class="fc" id="L54">		r1.setAmtChocolate(-1);</span>
+<span class="fc" id="L55">		assertEquals(0, r1.getAmtChocolate());</span>
+<span class="fc" id="L56">	}</span>
+	
+	/**
+	 * Test setAmountCoffee() method of the Recipe class to make sure
+	 * that a negative amount cannot be added.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	public void testSetAmountCoffee() throws Exception {
+<span class="fc" id="L66">		r1.setAmtCoffee(-1);</span>
+<span class="fc" id="L67">		assertEquals(0, r1.getAmtCoffee());</span>
+<span class="fc" id="L68">	}</span>
+	
+	/**
+	 * Test setAmountMilk() method of the Recipe class to make sure
+	 * that a negative amount cannot be added.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	public void testSetAmountMilk() throws Exception {
+<span class="fc" id="L78">		r1.setAmtMilk(-1);</span>
+<span class="fc" id="L79">		assertEquals(0, r1.getAmtMilk());</span>
+<span class="fc" id="L80">	}</span>
+	
+	/**
+	 * Test setAmountSugar() method of the Recipe class to make sure
+	 * that a negative amount cannot be added.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	public void testSetAmountSugar() throws Exception {
+<span class="fc" id="L90">		r1.setAmtSugar(-1);</span>
+<span class="fc" id="L91">		assertEquals(0, r1.getAmtSugar());</span>
+<span class="fc" id="L92">	}</span>
+	
+	/**
+	 * Test toString() method of the Recipe class to make sure that the correct stirng is returned.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	public void testToString() throws Exception {
+<span class="fc" id="L101">		assertEquals(&quot;Coffee&quot;, r1.toString());</span>
+<span class="fc" id="L102">	}</span>
+	
+	/**
+	 * Test equals() method of the Recipe class to make sure all the return values are as expected.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	public void testEquals() throws Exception {
+<span class="fc" id="L111">		assertFalse(r1.equals(r2));</span>
+<span class="fc" id="L112">		Recipe r3 = r1;</span>
+<span class="fc" id="L113">		assertTrue(r1.equals(r3));</span>
+<span class="fc" id="L114">		Recipe r4 = new Recipe();</span>
+<span class="fc" id="L115">		assertFalse(r1.equals(r4));</span>
+<span class="fc" id="L116">		assertFalse(r4.equals(r1));</span>
+<span class="fc" id="L117">	}</span>
+}
+
+/*$CPS$ This comment was generated by CodePro. Do not edit it.
+ * patternId = com.instantiations.assist.eclipse.pattern.testCasePattern
+ * strategyId = com.instantiations.assist.eclipse.pattern.testCasePattern.junitTestCase
+ * additionalTestNames = 
+ * assertTrue = false
+ * callTestMethod = true
+ * createMain = false
+ * createSetUp = false
+ * createTearDown = false
+ * createTestFixture = false
+ * createTestStubs = false
+ * methods = 
+ * package = edu.towson.cis.cosc442.project4.coffeemaker
+ * package.sourceFolder = CoffeeMaker/src
+ * superclassType = junit.framework.TestCase
+ * testCase = RecipeTest
+ * testClassType = Recipe
+ */
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span>edu.towson.cis.cosc442.project4.coffeemaker (Mar 26, 2015 2:42:33 PM)</div></body></html>
