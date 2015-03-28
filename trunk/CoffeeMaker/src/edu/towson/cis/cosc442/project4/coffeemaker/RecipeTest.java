@@ -43,56 +43,105 @@ public class RecipeTest extends TestCase {
 		r2.setAmtChocolate(0);
 	}
 	
+	
 	/**
 	 * Test setAmountChocolate() method of the Recipe class to make sure
-	 * that a negative amount cannot be added.
+	 * that a negative amount cannot be added. And amount greater than 0 can be added.
 	 *
 	 * @throws Exception the exception
 	 */
 	@Test
 	public void testSetAmountChocolate() throws Exception {
-		r1.setAmtChocolate(-1);
-		assertEquals(0, r1.getAmtChocolate());
+		Integer value = -1;
+		r1.setAmtChocolate(value);
+		assertFalse(value == r1.getAmtChocolate());
+		assertNotSame(r1.getAmtChocolate(), value);
+		
+		value = 0;
+		r1.setAmtChocolate(value);
+		assertEquals(value.intValue(), r1.getAmtChocolate().intValue());
+		assertSame(r1.getAmtChocolate(), value);
+		
+		value = 1;
+		r1.setAmtChocolate(value);
+		assertEquals(value.intValue(), r1.getAmtChocolate().intValue());
+		assertSame(r1.getAmtChocolate(), value);
 	}
 	
 	/**
 	 * Test setAmountCoffee() method of the Recipe class to make sure
-	 * that a negative amount cannot be added.
+	 * that a negative amount cannot be added. And amount greater than 0 can be added.
 	 *
 	 * @throws Exception the exception
 	 */
 	@Test
 	public void testSetAmountCoffee() throws Exception {
-		r1.setAmtCoffee(-1);
-		assertEquals(0, r1.getAmtCoffee());
+		Integer value = -1;
+		r1.setAmtCoffee(value);
+		assertFalse(value == r1.getAmtCoffee());
+		assertNotSame(r1.getAmtCoffee(), value);
+		
+		value = 0;
+		r1.setAmtCoffee(value);
+		assertEquals(value.intValue(), r1.getAmtCoffee().intValue());
+		assertSame(r1.getAmtCoffee(), value);
+		
+		value = 1;
+		r1.setAmtCoffee(value);
+		assertEquals(value.intValue(), r1.getAmtCoffee().intValue());
+		assertSame(r1.getAmtCoffee(), value);
 	}
 	
 	/**
 	 * Test setAmountMilk() method of the Recipe class to make sure
-	 * that a negative amount cannot be added.
+	 * that a negative amount cannot be added. And amount greater than 0 can be added.
 	 *
 	 * @throws Exception the exception
 	 */
 	@Test
 	public void testSetAmountMilk() throws Exception {
-		r1.setAmtMilk(-1);
-		assertEquals(0, r1.getAmtMilk());
+		Integer value = -1;
+		r1.setAmtMilk(value);
+		assertFalse(value == r1.getAmtMilk());
+		assertNotSame(r1.getAmtMilk(), value);
+		
+		value = 0;
+		r1.setAmtMilk(value);
+		assertEquals(value.intValue(), r1.getAmtMilk().intValue());
+		assertSame(r1.getAmtMilk(), value);
+		
+		value = 1;
+		r1.setAmtMilk(value);
+		assertEquals(value.intValue(), r1.getAmtMilk().intValue());
+		assertSame(r1.getAmtMilk(), value);
 	}
 	
 	/**
 	 * Test setAmountSugar() method of the Recipe class to make sure
-	 * that a negative amount cannot be added.
+	 * that a negative amount cannot be added. And amount greater than 0 can be added.
 	 *
 	 * @throws Exception the exception
 	 */
 	@Test
 	public void testSetAmountSugar() throws Exception {
-		r1.setAmtSugar(-1);
-		assertEquals(0, r1.getAmtSugar());
+		Integer value = -1;
+		r1.setAmtSugar(value);
+		assertFalse(value == r1.getAmtSugar());
+		assertNotSame(r1.getAmtSugar(), value);
+		
+		value = 0;
+		r1.setAmtSugar(value);
+		assertEquals(value.intValue(), r1.getAmtSugar().intValue());
+		assertSame(r1.getAmtSugar(), value);
+		
+		value = 1;
+		r1.setAmtSugar(value);
+		assertEquals(value.intValue(), r1.getAmtSugar().intValue());
+		assertSame(r1.getAmtSugar(), value);
 	}
 	
 	/**
-	 * Test toString() method of the Recipe class to make sure that the correct stirng is returned.
+	 * Test toString() method of the Recipe class to make sure that the correct string is returned.
 	 *
 	 * @throws Exception the exception
 	 */

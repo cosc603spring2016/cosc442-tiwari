@@ -45,6 +45,14 @@ public class CoffeeMakerTest extends TestCase {
 		cm.addRecipe(r1);
 		assertTrue(cm.deleteRecipe(r1));
 	}
+	
+	/**
+	 * Test deleteRecipe() method to make sure that a recipe that is not added cannot be deleted.
+	 */
+	@Test
+	public void testDeleteRecipe2() {
+		assertFalse(cm.deleteRecipe(r1));
+	}
 
 	public void testEditRecipe1() {
 		cm.addRecipe(r1);
@@ -53,6 +61,7 @@ public class CoffeeMakerTest extends TestCase {
 		newRecipe.setAmtSugar(2);
 		assertTrue(cm.editRecipe(r1, newRecipe));
 	}
+
 	
 	/**
 	 * Run the boolean addInventory(int,int,int,int) method test. This test will make sure that when
@@ -69,10 +78,28 @@ public class CoffeeMakerTest extends TestCase {
 		int amtSugar = 1;
 		int amtChocolate = 2;
 		
+		Inventory inv = cm.checkInventory();
+		
+		int oldAmountCoffee = inv.getCoffee();
+		int oldAmountMilk = inv.getMilk();
+		int oldAmountSugar = inv.getSugar();
+		int oldAmountChocolate = inv.getChocolate();
+		
 		boolean result = cm.addInventory(amtCoffee, amtMilk, amtSugar, amtChocolate);
 
+		amtCoffee = amtCoffee + oldAmountCoffee;
+		amtMilk = amtMilk + oldAmountMilk;
+		amtSugar = amtSugar + oldAmountSugar;
+		amtChocolate = amtChocolate + oldAmountChocolate;
+		
+		inv = cm.checkInventory();
+		
 		// add additional test code here
 		assertEquals(true, result);
+		assertEquals(amtCoffee, inv.getCoffee().intValue());
+		assertEquals(amtMilk, inv.getMilk().intValue());
+		assertEquals(amtSugar, inv.getSugar().intValue());
+		assertEquals(amtChocolate, inv.getChocolate().intValue());
 	}
 	
 	/**
@@ -89,11 +116,48 @@ public class CoffeeMakerTest extends TestCase {
 		int amtMilk = 1;
 		int amtSugar = 1;
 		int amtChocolate = 1;
+		
+		Inventory inv = cm.checkInventory();
+		
+		int oldAmountCoffee = inv.getCoffee();
+		int oldAmountMilk = inv.getMilk();
+		int oldAmountSugar = inv.getSugar();
+		int oldAmountChocolate = inv.getChocolate();
 
 		boolean result = cm.addInventory(amtCoffee, amtMilk, amtSugar, amtChocolate);
+		
+		amtCoffee = amtCoffee + oldAmountCoffee;
+		amtMilk = amtMilk + oldAmountMilk;
+		amtSugar = amtSugar + oldAmountSugar;
+		amtChocolate = amtChocolate + oldAmountChocolate;
+		
+		inv = cm.checkInventory();
 
 		// add additional test code here
 		assertEquals(false, result);
+		assertFalse(amtCoffee == inv.getCoffee());
+		assertFalse(amtMilk == inv.getMilk());
+		assertFalse(amtSugar == inv.getSugar());
+		assertFalse(amtChocolate == inv.getChocolate());
+	}
+	
+	/**
+	 * Run the boolean addInventory(int,int,int,int) method test. This test will make sure that when
+	 * zeroes are passed for the amounts, the inventory is added.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	public void testAddInventory3() throws Exception {
+		int amtCoffee = 0;
+		int amtMilk = 0;
+		int amtSugar = 0;
+		int amtChocolate = 0;
+		
+		boolean result = cm.addInventory(amtCoffee, amtMilk, amtSugar, amtChocolate);
+
+		// add additional test code here
+		assertEquals(true, result);
 	}
 	
 	/**
@@ -112,24 +176,39 @@ public class CoffeeMakerTest extends TestCase {
 		// add additional test code here
 		assertNotNull(result);
 		assertEquals("Coffee: 15\r\nMilk: 15\r\nSugar: 15\r\nChocolate: 15\r\n", result.toString());
-		assertEquals(15, result.getMilk());
-		assertEquals(15, result.getSugar());
-		assertEquals(15, result.getChocolate());
-		assertEquals(15, result.getCoffee());
+		assertEquals(15, result.getMilk().intValue());
+		assertEquals(15, result.getSugar().intValue());
+		assertEquals(15, result.getChocolate().intValue());
+		assertEquals(15, result.getCoffee().intValue());
 	}
 	
 
 	/**
-	 * Test makeCoffee() method so that a drink is successfully purchased. 
+	 * Test makeCoffee() method so that a drink is successfully purchased the amount inserted is the higher than the cost.
 	 *
 	 * @throws Exception the exception
 	 */
 	@Test
 	public void testPurchaseBeverage1() throws Exception {
 		r1.setPrice(2);
+		
+		Inventory inv = cm.checkInventory();
+		
+		int coffee = inv.getCoffee();
+		int milk = inv.getMilk();
+		int sugar = inv.getSugar();
+		int chocolate = inv.getChocolate();
+		
 		assertTrue(cm.addRecipe(r1));
 		int change = cm.makeCoffee(r1, 3);
+		
+		inv = cm.checkInventory();
+		
 		assertEquals(change, 1);
+		assertEquals(coffee - r1.getAmtCoffee().intValue(), inv.getCoffee().intValue());
+		assertEquals(milk - r1.getAmtMilk().intValue(), inv.getMilk().intValue());
+		assertEquals(sugar - r1.getAmtSugar().intValue(), inv.getSugar().intValue());
+		assertEquals(chocolate - r1.getAmtChocolate().intValue(), inv.getChocolate().intValue());
 	}
 	
 	/**
@@ -141,23 +220,58 @@ public class CoffeeMakerTest extends TestCase {
 	@Test
 	public void testPurchaseBeverage2() throws Exception {
 		r1.setPrice(3);
+				
+		assertTrue(cm.addRecipe(r1));
+		int change = cm.makeCoffee(r1, 2);		
+		assertEquals(change, change);
+		
+	}
+	
+	/**
+	 * Test makeCoffee() method so that a drink is not purchased successfully when the 
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	public void testPurchaseBeverage3() throws Exception {
+		r1.setPrice(3);
 		assertTrue(cm.addRecipe(r1));
 		int change = cm.makeCoffee(r1, 2);
 		assertEquals(change, change);
 	}
 	
 	/**
-	 * Test makeCoffee() method so that a drink is not purchased successfully when the recipe is not added to the machine.
+	 * Test makeCoffee() method so that a drink is successfully purchased when the amount inserted is the same as the cost.
 	 *
 	 * @throws Exception the exception
 	 */
 	@Test
-	public void testPurchaseBeverage3() throws Exception {
-		r1.setPrice(2);
+	public void testPurchaseBeverage4() throws Exception {
+		r1.setPrice(3);
+		r1.setName("Hot Chocolate");
+		r1.setAmtCoffee(0);
+		r1.setAmtChocolate(1);
+		
+		Inventory inv = cm.checkInventory();
+		
+		int coffee = inv.getCoffee();
+		int milk = inv.getMilk();
+		int sugar = inv.getSugar();
+		int chocolate = inv.getChocolate();
+		
+		assertTrue(cm.addRecipe(r1));
 		int change = cm.makeCoffee(r1, 3);
-		assertEquals(change, change);
+		
+		inv = cm.checkInventory();
+		
+		assertEquals(change, 0);
+		assertEquals(coffee - r1.getAmtCoffee().intValue(), inv.getCoffee().intValue());
+		assertEquals(milk - r1.getAmtMilk().intValue(), inv.getMilk().intValue());
+		assertEquals(sugar - r1.getAmtSugar().intValue(), inv.getSugar().intValue());
+		assertEquals(chocolate - r1.getAmtChocolate().intValue(), inv.getChocolate().intValue());
 	}
 	
+
 	/**
 	 * Test getRecipes() method of the CoffeeMaker.java to make sure that the recipe array is returned.
 	 */

@@ -35,52 +35,122 @@ public class InventoryTest extends TestCase {
 	}
 	
 	/**
-	 * Test setMilk() method to make sure that the value is set to 0 when a negative value is passed.
+	 * Test setMilk() method to make sure that the value is set to 0 when a negative value is passed,
+	 * else the value is set to what is passed.
 	 *
 	 * @throws Exception the exception
 	 */
 	@Test
 	public void testSetMilk() throws Exception {
-		i.setMilk(-2);
-		assertEquals(0, i.getMilk());
+		Integer value = -1;
+		i.setMilk(value);
+		assertFalse(value == i.getMilk());
+		assertNotSame(i.getMilk(), value);
+		
+		value = 0;
+		i.setMilk(value);
+		assertEquals(value.intValue(), i.getMilk().intValue());
+		assertSame(i.getMilk(), value);
+		
+		value = 1;
+		i.setMilk(value);
+		assertEquals(value.intValue(), i.getMilk().intValue());
+		assertSame(i.getMilk(), value);
 	}
 	
 	/**
-	 * Test setCoffee() method to make sure that the value is set to 0 when a negative value is passed.
+	 * Test setCoffee() method to make sure that the value is set to 0 when a negative value is passed,
+	 * else the value is set to what is passed.
 	 *
 	 * @throws Exception the exception
 	 */
 	@Test
 	public void testSetCoffee() throws Exception {
-		i.setCoffee(-2);
-		assertEquals(0, i.getCoffee());
+		Integer value = -1;
+		i.setCoffee(value);
+		assertFalse(value == i.getCoffee());
+		assertNotSame(value, i.getCoffee());
+		
+		value = 0;
+		i.setCoffee(value);
+		assertEquals(value.intValue(), i.getCoffee().intValue());
+		assertSame(value, i.getCoffee());
+		
+		value = 1;
+		i.setCoffee(value);
+		assertEquals(value.intValue(), i.getCoffee().intValue());
+		assertSame(value, i.getCoffee());
 	}
 	
 	/**
-	 * Test setChocolate() method to make sure that the value is set to 0 when a negative value is passed.
+	 * Test setChocolate() method to make sure that the value is set to 0 when a negative value is passed,
+	 * else the value is set to what is passed.
 	 *
 	 * @throws Exception the exception
 	 */
 	@Test
 	public void testSetChocolate() throws Exception {
-		i.setChocolate(-2);
-		assertEquals(0, i.getChocolate());
+		int value = -1;
+		i.setChocolate(value);
+		assertFalse(value == i.getChocolate());
+		assertNotSame(value, i.getChocolate());
+		
+		value = 0;
+		i.setChocolate(value);
+		assertEquals(value, i.getChocolate().intValue());
+		assertSame(value, i.getChocolate());
+		
+		value = 1;
+		i.setChocolate(value);
+		assertEquals(value, i.getChocolate().intValue());
+		assertSame(value, i.getChocolate());
 	}
 	
 	/**
-	 * Test setSugar() method to make sure that the value is set to 0 when a negative value is passed.
+	 * Test setSugar() method to make sure that the value is set to 0 when a negative value is passed,
+	 * else the value is set to what is passed.
 	 *
 	 * @throws Exception the exception
 	 */
 	@Test
 	public void testSetSugar() throws Exception {
-		i.setSugar(-2);
-		assertEquals(0, i.getSugar());
+		int value = -1;
+		i.setSugar(value);
+		assertFalse(value == i.getSugar());
+		assertNotSame(value, i.getSugar());
+		
+		value = 0;
+		i.setSugar(value);
+		assertEquals(value, i.getSugar().intValue());
+		assertSame(value, i.getSugar());
+		
+		value = 1;
+		i.setSugar(value);
+		assertEquals(value, i.getSugar().intValue());
+		assertSame(value, i.getSugar());
 	}
 	
+	/**
+	 * Test enoughIngredients() method to make sure that when the inventory does not have the required amount of coffee, the test fails.
+	 * Test enoughIngredients() method to make sure that when the inventory has exactly the required amount of ingredients, the test passes.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testEnoughIngredients() throws Exception {
 		assertFalse(i.enoughIngredients(r1));
+		r1.setAmtCoffee(15);
+		assertTrue(i.enoughIngredients(r1));
+		r1.setAmtCoffee(0);
+		r1.setAmtMilk(15);
+		assertTrue(i.enoughIngredients(r1));
+		r1.setAmtMilk(0);
+		r1.setAmtSugar(15);
+		assertTrue(i.enoughIngredients(r1));
+		r1.setAmtSugar(0);
+		r1.setAmtChocolate(15);
+		assertTrue(i.enoughIngredients(r1));
+		r1.setAmtChocolate(0);
 	}
 }
 
