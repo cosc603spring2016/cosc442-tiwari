@@ -1,0 +1,204 @@
+Test Generation Using the W-method. V2.0. August 1, 2013
+
+Enter filename: OddBinaryFSM.txt
+FSM input from:  OddBinaryFSM.txt
+States: 3
+Edges 6
+Input alphabet:
+0
+1
+
+Output alphabet:
+even
+odd
+
+From 	 Input/Output 	 To
+1	 1/even		 2
+1	 0/odd		 1
+2	 0/even		 3
+2	 1/odd		 1
+3	 0/even		 2
+3	 1/even		 3
+
+Transition cover set (P). 7 entries.
+Empty 0 1 10 100 101 11 
+
+W Set. 2 entries.
+0 1 
+
+Number of Test Cases :14
+Test cases: [0, 00, 01, 1, 10, 100, 1000, 1001, 101, 1010, 1011, 11, 110, 111]
+
+FSM execution begins. Input: 0  Initial state: 1
+Current state: 1
+ Input: 0 Next state: 1 Output: odd
+
+FSM execution completed. Final state: 1
+Output pattern:odd
+
+The pattern is an odd binary number
+
+FSM execution begins. Input: 0 0  Initial state: 1
+Current state: 1
+ Input: 0 Next state: 1 Output: odd
+Current state: 1
+ Input: 0 Next state: 1 Output: odd
+
+FSM execution completed. Final state: 1
+Output pattern:oddodd
+
+The pattern is an odd binary number
+
+FSM execution begins. Input: 0 1  Initial state: 1
+Current state: 1
+ Input: 0 Next state: 1 Output: odd
+Current state: 1
+ Input: 1 Next state: 2 Output: even
+
+FSM execution completed. Final state: 2
+Output pattern:oddeven
+
+The pattern is an even binary number
+
+FSM execution begins. Input: 1  Initial state: 1
+Current state: 1
+ Input: 1 Next state: 2 Output: even
+
+FSM execution completed. Final state: 2
+Output pattern:even
+
+The pattern is an even binary number
+
+FSM execution begins. Input: 1 0  Initial state: 1
+Current state: 1
+ Input: 1 Next state: 2 Output: even
+Current state: 2
+ Input: 0 Next state: 3 Output: even
+
+FSM execution completed. Final state: 3
+Output pattern:eveneven
+
+The pattern is an even binary number
+
+FSM execution begins. Input: 1 0 0  Initial state: 1
+Current state: 1
+ Input: 1 Next state: 2 Output: even
+Current state: 2
+ Input: 0 Next state: 3 Output: even
+Current state: 3
+ Input: 0 Next state: 2 Output: even
+
+FSM execution completed. Final state: 2
+Output pattern:eveneveneven
+
+The pattern is an even binary number
+
+FSM execution begins. Input: 1 0 0 0  Initial state: 1
+Current state: 1
+ Input: 1 Next state: 2 Output: even
+Current state: 2
+ Input: 0 Next state: 3 Output: even
+Current state: 3
+ Input: 0 Next state: 2 Output: even
+Current state: 2
+ Input: 0 Next state: 3 Output: even
+
+FSM execution completed. Final state: 3
+Output pattern:eveneveneveneven
+
+The pattern is an even binary number
+
+FSM execution begins. Input: 1 0 0 1  Initial state: 1
+Current state: 1
+ Input: 1 Next state: 2 Output: even
+Current state: 2
+ Input: 0 Next state: 3 Output: even
+Current state: 3
+ Input: 0 Next state: 2 Output: even
+Current state: 2
+ Input: 1 Next state: 1 Output: odd
+
+FSM execution completed. Final state: 1
+Output pattern:evenevenevenodd
+
+The pattern is an odd binary number
+
+FSM execution begins. Input: 1 0 1  Initial state: 1
+Current state: 1
+ Input: 1 Next state: 2 Output: even
+Current state: 2
+ Input: 0 Next state: 3 Output: even
+Current state: 3
+ Input: 1 Next state: 3 Output: even
+
+FSM execution completed. Final state: 3
+Output pattern:eveneveneven
+
+The pattern is an even binary number
+
+FSM execution begins. Input: 1 0 1 0  Initial state: 1
+Current state: 1
+ Input: 1 Next state: 2 Output: even
+Current state: 2
+ Input: 0 Next state: 3 Output: even
+Current state: 3
+ Input: 1 Next state: 3 Output: even
+Current state: 3
+ Input: 0 Next state: 2 Output: even
+
+FSM execution completed. Final state: 2
+Output pattern:eveneveneveneven
+
+The pattern is an even binary number
+
+FSM execution begins. Input: 1 0 1 1  Initial state: 1
+Current state: 1
+ Input: 1 Next state: 2 Output: even
+Current state: 2
+ Input: 0 Next state: 3 Output: even
+Current state: 3
+ Input: 1 Next state: 3 Output: even
+Current state: 3
+ Input: 1 Next state: 3 Output: even
+
+FSM execution completed. Final state: 3
+Output pattern:eveneveneveneven
+
+The pattern is an even binary number
+
+FSM execution begins. Input: 1 1  Initial state: 1
+Current state: 1
+ Input: 1 Next state: 2 Output: even
+Current state: 2
+ Input: 1 Next state: 1 Output: odd
+
+FSM execution completed. Final state: 1
+Output pattern:evenodd
+
+The pattern is an odd binary number
+
+FSM execution begins. Input: 1 1 0  Initial state: 1
+Current state: 1
+ Input: 1 Next state: 2 Output: even
+Current state: 2
+ Input: 1 Next state: 1 Output: odd
+Current state: 1
+ Input: 0 Next state: 1 Output: odd
+
+FSM execution completed. Final state: 1
+Output pattern:evenoddodd
+
+The pattern is an odd binary number
+
+FSM execution begins. Input: 1 1 1  Initial state: 1
+Current state: 1
+ Input: 1 Next state: 2 Output: even
+Current state: 2
+ Input: 1 Next state: 1 Output: odd
+Current state: 1
+ Input: 1 Next state: 2 Output: even
+
+FSM execution completed. Final state: 2
+Output pattern:evenoddeven
+
+The pattern is an even binary number

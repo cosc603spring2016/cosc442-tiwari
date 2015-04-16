@@ -103,5 +103,11 @@ public class Utilities{
     }
     Utilities.debugFSMExecution("\nFSM execution completed. Final state: "+currentState);
     Utilities.debugFSMExecution("Output pattern:"+outputPattern);
+    if(currentState == 1) {
+    	Utilities.debugFSMExecution("\nThe pattern is an odd binary number");
+    }else {
+    	Utilities.debugFSMExecution("\nThe pattern is an even binary number");
+    }
+    
   }
 }// End of class Utilities.
