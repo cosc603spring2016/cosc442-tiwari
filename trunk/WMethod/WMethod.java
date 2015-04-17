@@ -241,26 +241,35 @@ public class WMethod{
    Method to print all states and transitions of the input FSM.
    */
   
-  public static void printFSM(String [] inputAlphabet){
+  public static void printFSM(String [] inputAlphabet, PrintWriter out){
     // Temporary variables.
     
     Set edges=new HashSet();
     int stateID;
     
+    out.println("States: "+numberOfStates);
     System.out.println("States: "+numberOfStates);
+    out.println("Edges "+numberOfTransitions);
     System.out.println("Edges "+numberOfTransitions);
+    out.println("Input alphabet:");
     System.out.println("Input alphabet:");
-    for (int i=0; i<inputAlphabet.length; i++)
-      System.out.println(inputAlphabet[i]);
+    for (int i=0; i<inputAlphabet.length; i++) {
+    	out.println(inputAlphabet[i]);
+      	System.out.println(inputAlphabet[i]);
+    }
     
+    out.println("\nOutput alphabet:");
     System.out.println("\nOutput alphabet:");
     int count = 0;
     Arrays.sort(outputArray);
     while(count<maxOutputs){
-      if(!outputArray[count].equals(""))
-        System.out.println(outputArray[count]); 
+      if(!outputArray[count].equals("")) {
+    	  out.println(outputArray[count]);
+    	  System.out.println(outputArray[count]); 
+      }
       count++;
     }
+    out.println("\nFrom \t Input/Output \t To");
     System.out.println("\nFrom \t Input/Output \t To");
     for (int i=0; i<maxStates; i++){
       if(FSM[i]!=null){
@@ -269,6 +278,7 @@ public class WMethod{
         Iterator E=edges.iterator();
         while(E.hasNext()){
           Edge e=(Edge)E.next();
+          out.println(stateID+ "\t "+ e.input()+ "/" + e.output()+ "\t\t "+ e.tail());
           System.out.println(stateID+ "\t "+ e.input()+ "/" + e.output()+ "\t\t "+ e.tail());
         }// End of while over edges from a node
       }// End of if to check ith state.
@@ -277,9 +287,11 @@ public class WMethod{
    // Arrays.sort(inputArray);
     sortInputs();
     while(!inputArray[count].equals("")){
+    	out.println("Possible input "+count +": " +inputArray[count]);
       Utilities.debugFSM("Possible input "+count +": " +inputArray[count]); 
       count++;
     }
+    out.println(" ");
   }// End printFSM()
   
   private static String getFilename(){
@@ -351,8 +363,10 @@ public class WMethod{
    /* 
    Driver for the W-algorithm.
    */
-   public static void main(String [] args){
-     
+   public static void main(String [] args) throws IOException{
+	 PrintWriter out = new PrintWriter(new FileWriter("ConsoleOutput.txt"));
+	 PrintWriter jUnit = new PrintWriter(new FileWriter("JamesBondTest.java"));
+	 out.println("Test Generation Using the W-method. V2.0. August 1, 2013\n");
      System.out.println("Test Generation Using the W-method. V2.0. August 1, 2013\n");
      fileSource=new Scanner(System.in);
      fsmFilename=getFilename(); // Get  from the user file name for FSM.
@@ -370,26 +384,50 @@ public class WMethod{
        realInput[z] = inputArray[z]; // Real Input contains only the elements of the input alphabet.
      }
      Arrays.sort(realInput);
+     out.println("FSM input from:  "+fsmFilename);
      System.out.println("FSM input from:  "+fsmFilename);
      if(Utilities.fsmPrintSw)
-       printFSM(realInput); // Print FSM.
+       printFSM(realInput, out); // Print FSM.
      
      // Generate testingTree (Section 5.6.3 in the textbook).
      TestingTree transitionCover = new TestingTree(FSM, numberOfStates); 
      // Generate P-tables and the W set (Section 5.5 in the textbook).
      pTableManager w = new pTableManager(FSM, numberOfStates, realInput);
      Vector <String> tests=generateTests(transitionCover, w); // Generate tests.
-     Utilities.printAllTestCases(tests); // Print tests.
-     
+     Utilities.printAllTestCases(tests, out); // Print tests.
+     out.println(" ");
+     jUnit.println("import static org.junit.Assert.*;");
+	 jUnit.println("import org.junit.Test;");
+	 jUnit.println();
+	 jUnit.println("public class JamesBondTest {");
+     int i = 1;
      for(String s : tests) {
+    	 jUnit.println();
+    	 jUnit.println("	@Test");
+    	 jUnit.println("	public void testCase_" + i +"() {");
+    	 
     	 char arr[] = s.toCharArray();
+    	 String salt = s;
     	 s = "";
     	 for(char c : arr) {
     		 s = s + c + " ";
     	 }
-    	 Utilities.runFSM(FSM, 1, s, " ");
+    	 out.println("Test: " + i);
+    	 String output = Utilities.runFSM(FSM, 1, s, " ", out);
+    	
+    	 if(output.contains("yes")) {
+    		 jUnit.println("		assertTrue(JamesBond.bondRegex(\"" + salt + "\"));");
+    	 }else {
+    		 jUnit.println("		assertFalse(JamesBond.bondRegex(\"" + salt + "\"));");
+    	 }
+    	 
+    	 jUnit.println("	}");
+    	 out.println(" ");
+    	 i++;
      }
-     
+     jUnit.println("}");
+     out.close();
+     jUnit.close();
    }// End of main()
    
 }//End of class WMethod
